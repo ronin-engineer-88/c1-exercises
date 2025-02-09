@@ -6,3 +6,9 @@ public class Exercise05 {
         System.out.println("Dien tich hinh chu nhat: " + (4.5 * 7.9) + " cm^2");
     }
 }
+
+/*
+* Công thức tính toán :
+    Chu vi hình chữ nhật: P = 2 × (chiều dài + chiều rộng)
+    Diện tích hình chữ nhật: S = chiều dài × chiều rộng
+ */

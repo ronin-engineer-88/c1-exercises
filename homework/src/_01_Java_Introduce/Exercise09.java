@@ -10,3 +10,12 @@ public class Exercise09 {
         System.out.printf("Dân số sau năm năm sẽ là: %.2f\n", (312_032_486 + 5 * (365 * 24 * 60 * 60) * (1.0 / 6 - 1.0 / 15 + 1.0 / 40)));
     }
 }
+
+/*
+    Số giây trong một năm: S = 365 * 24 * 60 * 60
+    Số ca sinh trong một năm: B = S / 6
+    Số người chết trong một năm: D = S / 15
+    Số người nhập cư trong một năm: I = S / 40
+    Biến động dân số mỗi năm: ΔP = B - D + I = S * (1/6 - 1/15 + 1/40)
+    Dân số sau n năm: P_n = P + n * ΔP
+ */
