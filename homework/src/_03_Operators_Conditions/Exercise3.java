@@ -24,7 +24,7 @@ public class Exercise3 {
         if(b == 0)
             System.out.println("Lỗi");
         else {
-            double quotient = a / b;
+            double quotient = (double) a / b;
             System.out.printf("a/b = %.2f\n", quotient);
         }
 
