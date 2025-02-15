@@ -1,4 +1,4 @@
 package _03_Operators_Conditions;
 
-public class Exercise2 {
+public class Exercise02 {
 }
