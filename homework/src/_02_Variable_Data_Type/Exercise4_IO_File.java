@@ -5,22 +5,20 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Exercise4_IO_File {
-    public static void main(String[] args) {
-        File file = new File(".../data/inputDate.txt");
+    public static void main(String[] args) throws FileNotFoundException {
+        File file = new File("D:\\c1-exercise\\c1-exercises\\homework\\data\\inputDate.txt");
 
         if (!file.exists()) {
             System.out.println("Error: File does not exist!");
             return;
         }
 
-        try (Scanner scanner = new Scanner(file)) { // Dùng try-with-resources
-            int day = scanner.nextInt();
-            int month = scanner.nextInt();
-            int year = scanner.nextInt();
+        Scanner scanner = new Scanner(file);
+        int day = scanner.nextInt();
+        int month = scanner.nextInt();
+        int year = scanner.nextInt();
+        scanner.close();
 
-            System.out.printf("Dinh dang dd/MM/yyyy: %02d/%02d/%d\n", day, month, year);
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: File not found!");
-        }
+        System.out.printf("(dd/MM/yyyy): %02d/%02d/%d%n", day, month, year);
     }
 }
