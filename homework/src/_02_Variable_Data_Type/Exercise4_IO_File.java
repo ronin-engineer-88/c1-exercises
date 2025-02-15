@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Exercise4_IO_File {
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("D:\\c1-exercise\\c1-exercises\\homework\\data\\inputDate.txt");
+        File file = new File("02_Variable_Data_Type/data/input04.txt");
 
         if (!file.exists()) {
             System.out.println("Error: File does not exist!");

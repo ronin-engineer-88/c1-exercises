@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Exercise2_IO_File {
     public static void main(String[] args) throws Exception {
-        File inputFile = new File("...\\homework\\data\\input.txt");  // path file .txt bạn tạo
-        File outputFile = new File("...\\homework\\data\\output.txt");
+        File inputFile = new File("02_Variable_Data_Type/data/input02.txt");
+        File outputFile = new File("02_Variable_Data_Type/data/output02.txt");
 
         if (!inputFile.exists()) {
             System.out.println("Error: Input file does not exist!");
