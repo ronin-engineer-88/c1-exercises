@@ -2,10 +2,10 @@ package _02_Variable_Data_Type;
 
 import java.util.Scanner;
 
-public class Exercise1 {
+public class Console01 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Nhập giá trị inch muốn chuyển đổi sang cm: ");
         double inches = scanner.nextDouble();
 
