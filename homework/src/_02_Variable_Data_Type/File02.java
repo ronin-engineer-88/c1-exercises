@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class Exercise2_IO_File {
+public class File02 {
     public static void main(String[] args) throws Exception {
         File inputFile = new File("02_Variable_Data_Type/data/input02.txt");
         File outputFile = new File("02_Variable_Data_Type/data/output02.txt");

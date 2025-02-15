@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Exercise4_IO_File {
+public class File04 {
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("02_Variable_Data_Type/data/input04.txt");
 
