@@ -2,7 +2,7 @@ package _02_Variable_Data_Type;
 
 import java.util.Scanner;
 
-public class Exercise5 {
+public class Console05 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 

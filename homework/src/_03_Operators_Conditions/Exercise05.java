@@ -2,7 +2,7 @@ package _03_Operators_Conditions;
 
 import java.util.Scanner;
 
-public class Exercise5 {
+public class Exercise05 {
     public static void main(String[] args) {
         // Khai báo Scanner để nhập dữ liệu từ bàn phím
         Scanner scanner = new Scanner(System.in);
