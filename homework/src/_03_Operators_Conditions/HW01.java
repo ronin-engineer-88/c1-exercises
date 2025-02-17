@@ -1,6 +1,6 @@
 package _03_Operators_Conditions;
 
-public class Exercise01 {
+public class HW01 {
     public static void main(String[] args) {
         String a = "Hello Ronin Engineer";
 

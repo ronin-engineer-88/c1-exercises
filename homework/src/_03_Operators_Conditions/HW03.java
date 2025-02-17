@@ -2,7 +2,7 @@ package _03_Operators_Conditions;
 
 import java.util.Scanner;
 
-public class Exercise03 {
+public class HW03 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhập số nguyên a: "); int a = scanner.nextInt();
