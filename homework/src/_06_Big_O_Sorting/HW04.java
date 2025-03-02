@@ -3,6 +3,7 @@ package _06_Big_O_Sorting;
 public class HW04 {
     public static void main(String[] args) {
         int[] arr = {8, 4, 5, 2, 10};
+        //int[] arr = {10, 20, 30, 40, 50};
         int k = 2;
         bubbleSort(arr);
         System.out.println(maxDifference(arr, k));
@@ -22,13 +23,28 @@ public class HW04 {
     }
 
     public static int maxDifference(int[] arr, int k) {
-        int sumSmall = 0, sumLarge = 0;
-        for (int i = 0; i < k; i++) sumSmall += arr[i];
-        for (int i = k; i < arr.length; i++) sumLarge += arr[i];
+        int sumTotal = 0;
+        for (int num : arr) {
+            sumTotal += num; // 1: Tính tổng toàn bộ mảng
+        }
 
-        return sumLarge - sumSmall;
+        // Bước 2: Tính tổng nhóm nhỏ theo 2 cách
+        int sumSmall1 = 0; // Lấy K phần tử đầu làm nhóm nhỏ
+        for (int i = 0; i < k; i++) {
+            sumSmall1 += arr[i];
+        }
+        int diff1 = (sumTotal - sumSmall1) - sumSmall1;
+
+        int sumSmall2 = 0; // Lấy K phần tử cuối làm nhóm nhỏ
+        for (int i = arr.length - k; i < arr.length; i++) {
+            sumSmall2 += arr[i];
+        }
+        int diff2 = sumSmall2 - (sumTotal - sumSmall2);
+
+        return Math.max(diff1, diff2); // return hiệu lớn nhất
     }
 }
+
 /*
     Cho mảng A[] gồm N số nguyên không âm và số K. Nhiệm vụ của bạn là hãy chia mảng A[]
         thành hai mảng con có kích cỡ K và N-K sao cho hiệu giữa tổng hai mảng con là lớn nhất.
@@ -38,6 +54,9 @@ public class HW04 {
 
 /*
 1. Sắp xếp mảng tăng dần.
-2. Tách mảng con nhỏ nhất (K phần tử đầu tiên) và mảng con lớn nhất (N-K phần tử cuối cùng).
-3. Tính hiệu giữa tổng hai mảng con.
+2. Tính tổng toàn bộ mảng để dễ tính toán nhóm còn lại.
+3. Tính tổng của 2 cách chia nhóm nhỏ:
+      - sumSmall1: Lấy K phần tử đầu tiên làm nhóm nhỏ.
+      - sumSmall2: Lấy K phần tử cuối cùng làm nhóm nhỏ.
+4. So sánh 2 kết quả và chọn giá trị lớn nhất.
 */
