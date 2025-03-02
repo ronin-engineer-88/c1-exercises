@@ -55,4 +55,21 @@ public class HW05 {
         return true;
     }
 
+    /* Cách làm:
+        - Chương trình kiểm tra xem tất cả đũa phép có thể bỏ vào hộp tương ứng hay không.
+        - Bước 1: Nhập số lượng đũa phép từ người dùng (`n`).
+        - Bước 2: Nhập danh sách độ dài của `n` đũa phép vào mảng `wands`.
+        - Bước 3: Sắp xếp mảng `wands` theo thứ tự tăng dần bằng thuật toán `insertionSort`.
+        - Bước 4: Nhập danh sách độ dài của `n` hộp vào mảng `boxes`.
+        - Bước 5: Sắp xếp mảng `boxes` theo thứ tự tăng dần bằng thuật toán `insertionSort`.
+        - Bước 6: Kiểm tra từng cặp phần tử trong `wands` và `boxes`:
+        - Nếu một cây đũa nào đó dài hơn hộp tương ứng, việc xếp đũa vào hộp thất bại.
+        - Nếu tất cả các cây đũa đều nhỏ hơn hoặc bằng hộp tương ứng, việc xếp thành công.
+        - Bước 7: Hàm `isPortable(int[] arr1, int[] arr2)` kiểm tra điều kiện trên:
+            + Nếu có phần tử `arr1[i] > arr2[i]`, trả về `false`.
+            + Nếu tất cả phần tử thỏa mãn điều kiện, trả về `true`.
+        - Bước 8: Dựa vào kết quả của `isPortable`, in ra "YES" (nếu có thể xếp tất cả đũa vào hộp) hoặc "NO" (nếu không thể).
+    */
+
+
 }
