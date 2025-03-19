@@ -1,8 +1,8 @@
-package _12_Exception;
+package _12_Exception.Exercise05;
 
 import java.util.Scanner;
 
-public class Exercise05 {
+public class checkAge {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -23,11 +23,5 @@ public class Exercise05 {
             scanner.close();
             System.out.println("Chương trình đã kết thúc.");
         }
-    }
-}
-
-class InvalidAgeException extends Exception {
-    public InvalidAgeException(String message) {
-        super(message);
     }
 }
