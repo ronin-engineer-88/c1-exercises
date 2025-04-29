@@ -95,8 +95,23 @@ GROUP BY m.CardNo
 HAVING num_borrow >= 1;
 
 -- 11. Liệt kê tên sách và ngày mượn của sách có hóa đơn mượn nhưng chưa được trả và số lượng ngày quá hạn (số ngày giữa Due_Date và ngày hiện tại).
+SELECT b.Title,
+       bi.Date_out,
+       DATEDIFF(CURRENT_DATE, bi.Due_Date) AS overdue_days
+FROM book b
+         JOIN book_invoice bi ON bi.Book_Id = b.Book_Id
+WHERE bi.Date_out IS NOT NULL
+  AND bi.Due_Date < CURRENT_DATE;
 
 -- 12. Liệt kê tên sách và tên nhà xuất bản của sách có hóa đơn mượn nhưng chưa được trả và số lượng ngày quá hạn lớn hơn 7.
+SELECT b.Title,
+       pub.Name AS publisher
+FROM book b
+         JOIN book_invoice bi ON bi.Book_Id = b.Book_Id
+         JOIN publisher pub ON pub.Pub_Id = b.Pub_Id
+WHERE bi.Due_Date < CURRENT_DATE
+  AND DATEDIFF(CURRENT_DATE, bi.Due_Date) > 7;
+
 
 -- 13. Đếm xem ngày hôm nay mỗi nhân viên có bao nhiêu hóa đơn.
 SELECT e.Emp_Id,
