@@ -30,7 +30,7 @@ WHERE b.Price > (SELECT AVG(Price)
 SELECT m.*,
        COUNT(bi.Invoice_No) AS total_book_borrowed
 FROM member m
-         LEFT JOIN book_invoice bi ON bi.Invoice_No = m.CardNo
+         LEFT JOIN book_invoice bi ON bi.CardNo = m.CardNo
 GROUP BY m.CardNo;
 
 -- 5. Liệt kê tên sách và tên nhà xuất bản của quyển sách có giá cao nhất và giá thấp nhất.
