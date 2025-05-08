@@ -8,8 +8,6 @@ import com.roninEngineerF02.shoppingOnline.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping(UrlConstant.API_BASE_V1)
@@ -22,30 +20,27 @@ public class AdminController {
 
     @GetMapping(UrlConstant.ADMIN_USERS)
     public Object getUsers(@RequestParam(required = false) String email) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("email", email);
-        return response; // Return request parameter
+        checkAdminAccess();
+        return adminService.getUsers(email);
     }
 
     @DeleteMapping(UrlConstant.CRUD_ADMIN_USERS)
     public Object deleteUser(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        return response; // Return path variable
+        checkAdminAccess();
+        adminService.deleteUser(id);
+        return id;
     }
 
     @PatchMapping(UrlConstant.BLOCK_USERS)
     public Object blockUser(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        return response; // Return path variable
+        checkAdminAccess();
+        return adminService.blockUser(id);
     }
 
     @PatchMapping(UrlConstant.UNBLOCK_USERS)
     public Object unblockUser(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        return response; // Return path variable
+        checkAdminAccess();
+        return adminService.unblockUser(id);
     }
 
 
@@ -53,23 +48,22 @@ public class AdminController {
 
     @PostMapping(UrlConstant.ADMIN_PRODUCTS)
     public Object createProduct(@RequestBody ProductCreateRequestDto request) {
-        return request; // Return request body
+        checkAdminAccess();
+        return adminService.createProduct(request);
     }
 
     @PutMapping(UrlConstant.CRUD_ADMIN_PRODUCTS)
     public Object updateProduct(@PathVariable Long id,
                                 @RequestBody ProductUpdateRequestDto request) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        response.put("request", request);
-        return response; // Return all parameters
+        checkAdminAccess();
+        return adminService.updateProduct(id, request);
     }
 
     @DeleteMapping(UrlConstant.CRUD_ADMIN_PRODUCTS)
     public Object deleteProduct(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        return response; // Return path variable
+        checkAdminAccess();
+        adminService.deleteProduct(id);
+        return id;
     }
 
 
@@ -77,30 +71,28 @@ public class AdminController {
 
     @GetMapping(UrlConstant.ADMIN_ORDERS)
     public Object getAllOrders() {
-        return null; // No parameters
+        checkAdminAccess();
+        return adminService.getAllOrders();
     }
 
     @GetMapping(UrlConstant.CRUD_ADMIN_ORDERS)
     public Object getOrderDetails(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        return response; // Return path variable
+        checkAdminAccess();
+        return adminService.getOrderDetails(id);
     }
 
     @PatchMapping(UrlConstant.UPDATE_ORDER_DETAIL)
     public Object updateOrderStatus(@PathVariable Long id,
                                     @RequestBody UpdateOrderStatusRequestDto request) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        response.put("request", request);
-        return response; // Return all parameters
+        checkAdminAccess();
+        return adminService.updateOrderStatus(id, request);
     }
 
     @GetMapping(UrlConstant.GET_ORDER_HISTORY)
     public Object getOrderHistory(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        return response; // Return path variable
+        checkAdminAccess();
+        adminService.getOrderHistory(id);
+        return id;
     }
 
 

@@ -15,7 +15,8 @@ public class UserController {
 
     @GetMapping(UrlConstant.USER_PROFILE)
     public Object getUserProfile() {
-        return null; // No parameters
+        Long userId = getCurrentUserId();
+        return userService.getUserById(userId);
     }
 
     // Helper method to get current user ID (placeholder)

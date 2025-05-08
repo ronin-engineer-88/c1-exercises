@@ -2,6 +2,8 @@ package com.roninEngineerF02.shoppingOnline.controller.v1;
 
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.statistic.DateRangeRequestDto;
+import com.roninEngineerF02.shoppingOnline.service.StatisticService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(UrlConstant.API_BASE_V1)
 public class StatisticController {
 
+    @Autowired
+    private StatisticService statisticService;
+
     @GetMapping(UrlConstant.GET_STATS_REVENUE)
     public Object getRevenueStats(@RequestBody(required = false) DateRangeRequestDto request) {
-        return request; // Return request body if provided, or null if not
+        checkAdminAccess();
+        return statisticService.getRevenueStatistics(request);
     }
 
     // Helper method to check admin access (placeholder)
