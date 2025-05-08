@@ -3,8 +3,6 @@ package com.roninEngineerF02.shoppingOnline.controller.v1;
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.CreateOrderRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderInfoRequestDto;
-import com.roninEngineerF02.shoppingOnline.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -14,8 +12,6 @@ import java.util.Map;
 @RequestMapping(UrlConstant.API_BASE_V1)
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
 
     @GetMapping(UrlConstant.USER_ORDERS)
     public Object getUserOrders() {
