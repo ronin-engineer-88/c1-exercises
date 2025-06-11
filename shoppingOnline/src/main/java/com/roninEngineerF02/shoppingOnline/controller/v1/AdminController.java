@@ -4,6 +4,8 @@ import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderStatusRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductCreateRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductUpdateRequestDto;
+import com.roninEngineerF02.shoppingOnline.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(UrlConstant.API_BASE_V1)
 public class AdminController {
 
+    @Autowired
+    private AdminService adminService;
 
 // ============================= USER MANAGEMENT ========================================
 
