@@ -1,0 +1,27 @@
+package com.roninEngineerF02.shoppingOnline.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "order_items")
+@Getter
+@Setter
+public class OrderItem extends BaseEntity {
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @Column(name = "original_price")
+    private BigDecimal originalPrice;
+
+    private BigDecimal price;
+}
+
