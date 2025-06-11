@@ -5,9 +5,6 @@ import com.roninEngineerF02.shoppingOnline.dto.request.order.CreateOrderRequestD
 import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderInfoRequestDto;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequestMapping(UrlConstant.API_BASE_V1)
 public class OrderController {
@@ -15,35 +12,33 @@ public class OrderController {
 
     @GetMapping(UrlConstant.USER_ORDERS)
     public Object getUserOrders() {
-        return null; // No parameters
+        Long userId = getCurrentUserId();
+        return orderService.getUserOrders(userId);
     }
 
     @PutMapping(UrlConstant.ORDERS)
     public Object createOrder(@RequestBody CreateOrderRequestDto request) {
-        return request; // Return request body
+        Long userId = getCurrentUserId();
+        return orderService.createOrder(userId, request);
     }
 
     @GetMapping(UrlConstant.CRUD_USER_ORDERS)
     public Object getUserOrderDetail(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        return response; // Return path variable
+        Long userId = getCurrentUserId();
+        return orderService.getOrderDetailsForUser(userId, id);
     }
 
     @PatchMapping(UrlConstant.UPDATE_ORDER_INFO)
     public Object updateOrderInfo(@PathVariable Long id,
                                     @RequestBody UpdateOrderInfoRequestDto request) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        response.put("request", request);
-        return response; // Return all parameters
+        Long userId = getCurrentUserId();
+        return orderService.updateOrderInfo(userId, id, request);
     }
 
     @PatchMapping(UrlConstant.CANCEL_ORDER)
     public Object cancelOrder(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        return response; // Return path variable
+        Long userId = getCurrentUserId();
+        return orderService.cancelOrder(userId, id);
     }
 
 

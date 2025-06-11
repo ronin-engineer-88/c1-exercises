@@ -1,28 +1,25 @@
 package com.roninEngineerF02.shoppingOnline.controller.v1;
 
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
+import com.roninEngineerF02.shoppingOnline.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping(UrlConstant.API_BASE_V1)
 public class ProductController {
 
+    @Autowired
+    private ProductService productService;
+
     @GetMapping(UrlConstant.PRODUCTS)
     public Object getProducts(@RequestParam(required = false) String category,
                               @RequestParam(required = false) String name) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("category", category);
-        response.put("name", name);
-        return response; // Return request parameters
+        return productService.getProducts(category, name);
     }
 
     @GetMapping(UrlConstant.CRUD_PRODUCT)
     public Object getProductById(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", id);
-        return response; // Return path variable
+        return productService.getProductById(id);
     }
 }
