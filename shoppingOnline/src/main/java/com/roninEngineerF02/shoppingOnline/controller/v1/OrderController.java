@@ -3,12 +3,16 @@ package com.roninEngineerF02.shoppingOnline.controller.v1;
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.CreateOrderRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderInfoRequestDto;
+import com.roninEngineerF02.shoppingOnline.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.API_BASE_V1)
+@RequiredArgsConstructor
 public class OrderController {
 
+    private final OrderService orderService;
 
     @GetMapping(UrlConstant.USER_ORDERS)
     public Object getUserOrders() {

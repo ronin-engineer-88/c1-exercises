@@ -4,13 +4,16 @@ import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderStatusRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductCreateRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductUpdateRequestDto;
+import com.roninEngineerF02.shoppingOnline.service.AdminService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @RequestMapping(UrlConstant.API_BASE_V1)
+@RequiredArgsConstructor
 public class AdminController {
 
+    private final AdminService adminService;
 
 // ============================= USER MANAGEMENT ========================================
 
@@ -24,7 +27,7 @@ public class AdminController {
     public Object deleteUser(@PathVariable Long id) {
         checkAdminAccess();
         adminService.deleteUser(id);
-        return id;
+        return "Delete user successfully";
     }
 
     @PatchMapping(UrlConstant.BLOCK_USERS)
@@ -38,7 +41,6 @@ public class AdminController {
         checkAdminAccess();
         return adminService.unblockUser(id);
     }
-
 
 // ============================= PRODUCT MANAGEMENT ========================================
 
@@ -62,7 +64,6 @@ public class AdminController {
         return id;
     }
 
-
 // ============================= ORDER MANAGEMENT ========================================
 
     @GetMapping(UrlConstant.ADMIN_ORDERS)
@@ -79,7 +80,7 @@ public class AdminController {
 
     @PatchMapping(UrlConstant.UPDATE_ORDER_DETAIL)
     public Object updateOrderStatus(@PathVariable Long id,
-                                    @RequestBody UpdateOrderStatusRequestDto request) {
+            @RequestBody UpdateOrderStatusRequestDto request) {
         checkAdminAccess();
         return adminService.updateOrderStatus(id, request);
     }
@@ -91,13 +92,11 @@ public class AdminController {
         return id;
     }
 
-
     // Helper method to check admin access (placeholder)
     private void checkAdminAccess() {
         // Placeholder implementation
         // Will be replaced with proper admin role check when Spring Security is added
         // Could throw AccessDeniedException if not admin
     }
-
 
 }

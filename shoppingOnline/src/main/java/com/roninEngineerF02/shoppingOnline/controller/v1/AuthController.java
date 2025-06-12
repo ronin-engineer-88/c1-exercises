@@ -4,17 +4,17 @@ import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.auth.UserLoginRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.auth.UserRegisterRequestDto;
 import com.roninEngineerF02.shoppingOnline.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.API_BASE_V1)
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
-    @GetMapping(UrlConstant.LOGIN)
+    @PostMapping(UrlConstant.LOGIN)
     public Object login(@RequestBody UserLoginRequestDto request) {
         return authService.login(request);
     }

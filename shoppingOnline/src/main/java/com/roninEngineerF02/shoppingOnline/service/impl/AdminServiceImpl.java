@@ -11,21 +11,20 @@ import com.roninEngineerF02.shoppingOnline.service.AdminService;
 import com.roninEngineerF02.shoppingOnline.service.OrderService;
 import com.roninEngineerF02.shoppingOnline.service.ProductService;
 import com.roninEngineerF02.shoppingOnline.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private OrderService orderService;
+    private final UserService userService;
 
+    private final ProductService productService;
+
+    private final OrderService orderService;
 
     @Override
     public List<UserResponseDto> getUsers(String email) {
@@ -54,7 +53,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ProductUpdateResponseDto updateProduct(Long productId,
-                                                  ProductUpdateRequestDto request) {
+            ProductUpdateRequestDto request) {
         return productService.update(productId, request);
     }
 
@@ -75,7 +74,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public OrderResponseDto updateOrderStatus(Long orderId,
-                                              UpdateOrderStatusRequestDto request) {
+            UpdateOrderStatusRequestDto request) {
         return orderService.updateOrderStatus(orderId, request);
     }
 

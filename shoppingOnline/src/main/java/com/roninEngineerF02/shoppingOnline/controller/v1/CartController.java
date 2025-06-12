@@ -3,11 +3,16 @@ package com.roninEngineerF02.shoppingOnline.controller.v1;
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartAdditemRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartUpdateItemQuantityRequest;
+import com.roninEngineerF02.shoppingOnline.service.CartService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.API_BASE_V1)
+@RequiredArgsConstructor
 public class CartController {
+
+    private final CartService cartService;
 
     @GetMapping(UrlConstant.USER_CARTS)
     public Object getCart() {
