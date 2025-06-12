@@ -16,6 +16,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 public class CartServiceImpl implements CartService {
@@ -30,8 +34,10 @@ public class CartServiceImpl implements CartService {
     private CartItemRepository cartItemRepository;
 
     @Override
-    public CartResponseDto getCartByUserId(Integer userId) {
-        return null;
+    public List<CartItem> getCartItems(Integer userId) {
+        return cartRepository.findByUser_Id(userId)
+                .map(Cart::getItems)
+                .orElse(Collections.emptyList());
     }
 
     @Override
@@ -40,8 +46,22 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeItem(Integer userId, Long cartItemId) {
+    public void removeItem(Integer userId, Integer productId) {
+        Cart cart = cartRepository.findByUser_Id(userId)
+                .orElseThrow(() -> new CartNotFoundException(userId));
 
+        // Tìm item chứa productId trong cart
+        Optional<CartItem> itemToRemove = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst();
+
+        if (itemToRemove.isPresent()) {
+            cart.getItems().remove(itemToRemove.get());
+            cartItemRepository.delete(itemToRemove.get());
+            cartRepository.save(cart);
+        } else {
+            throw new ProductNotFoundException(productId);
+        }
     }
 
     @Override

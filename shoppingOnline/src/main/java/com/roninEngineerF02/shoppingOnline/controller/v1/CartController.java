@@ -3,10 +3,13 @@ package com.roninEngineerF02.shoppingOnline.controller.v1;
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartAdditemRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartUpdateItemQuantityRequest;
+import com.roninEngineerF02.shoppingOnline.entity.CartItem;
 import com.roninEngineerF02.shoppingOnline.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(UrlConstant.API_BASE_V1)
@@ -15,10 +18,11 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    // API view cart by userId
     @GetMapping(UrlConstant.USER_CARTS)
-    public Object getCart() {
+    public ResponseEntity<List<CartItem>> viewCart() {
         Integer userId = getCurrentUserId();
-        return cartService.getCartByUserId(userId);
+        return ResponseEntity.ok(cartService.getCartItems(userId));
     }
 
     // API add to cart
@@ -37,10 +41,10 @@ public class CartController {
     }
 
     @DeleteMapping(UrlConstant.CRUD_CART_ITEMS)
-    public Object removeFromCart(@PathVariable Long id) {
+    public ResponseEntity<?> removeFromCart(@PathVariable Integer productId) {
         Integer userId = getCurrentUserId();
-        cartService.removeItem(userId, id);
-        return id;
+        cartService.removeItem(userId, productId);
+        return ResponseEntity.ok("Item removed");
     }
 
     @DeleteMapping(UrlConstant.CARTS)
@@ -54,7 +58,7 @@ public class CartController {
     public static Integer getCurrentUserId() {
         // Placeholder implementation
         // Will be replaced with SecurityContextHolder implementation when Spring Security is added
-        return 0;
+        return 1;
     }
 
 }
