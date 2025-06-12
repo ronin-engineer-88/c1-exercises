@@ -46,6 +46,14 @@ public class AdminController {
 
 // ============================= PRODUCT MANAGEMENT ========================================
 
+    @GetMapping(UrlConstant.ADMIN_PRODUCTS)
+    public Object getProducts(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String category) {
+        checkAdminAccess();
+        return adminService.getProducts(name, category);
+    }
+
     @PostMapping(UrlConstant.ADMIN_PRODUCTS)
     public Object createProduct(@RequestBody ProductCreateRequestDto request) {
         checkAdminAccess();
@@ -63,7 +71,9 @@ public class AdminController {
     public Object deleteProduct(@PathVariable Long id) {
         checkAdminAccess();
         adminService.deleteProduct(id);
-        return id;
+        return String.format(
+                "Delete product with id %d successfully",
+                id);
     }
 
 
