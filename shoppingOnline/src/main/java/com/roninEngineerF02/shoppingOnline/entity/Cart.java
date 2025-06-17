@@ -1,7 +1,9 @@
 package com.roninEngineerF02.shoppingOnline.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -11,7 +13,9 @@ import java.util.List;
 @Table(name = "carts")
 @Getter
 @Setter
-public class Cart extends BaseEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Cart extends BaseEntity<Long> {
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

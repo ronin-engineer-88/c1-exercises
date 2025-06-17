@@ -2,10 +2,13 @@ package com.roninEngineerF02.shoppingOnline.service.impl;
 
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartAdditemRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartUpdateItemQuantityRequest;
+import com.roninEngineerF02.shoppingOnline.dto.response.cart.CartItemResponseDto;
 import com.roninEngineerF02.shoppingOnline.dto.response.cart.CartResponseDto;
+import com.roninEngineerF02.shoppingOnline.dto.response.product.ProductResponseDto;
 import com.roninEngineerF02.shoppingOnline.entity.Cart;
 import com.roninEngineerF02.shoppingOnline.entity.CartItem;
 import com.roninEngineerF02.shoppingOnline.entity.Product;
+import com.roninEngineerF02.shoppingOnline.exception.CartItemNotFoundException;
 import com.roninEngineerF02.shoppingOnline.exception.CartNotFoundException;
 import com.roninEngineerF02.shoppingOnline.exception.ProductNotFoundException;
 import com.roninEngineerF02.shoppingOnline.repository.CartItemRepository;
@@ -13,64 +16,91 @@ import com.roninEngineerF02.shoppingOnline.repository.CartRepository;
 import com.roninEngineerF02.shoppingOnline.repository.ProductRepository;
 import com.roninEngineerF02.shoppingOnline.service.CartService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class CartServiceImpl implements CartService {
 
-    @Autowired
-    private CartRepository cartRepository;
+    private final CartRepository cartRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private CartItemRepository cartItemRepository;
+    private final CartItemRepository cartItemRepository;
 
     @Override
-    public List<CartItem> getCartItems(Integer userId) {
-        return cartRepository.findByUser_Id(userId)
-                .map(Cart::getItems)
-                .orElse(Collections.emptyList());
+    public CartResponseDto getCartItems(Long userId) {
+
+        Cart cart = cartRepository.findById(userId)
+                .orElseThrow(() -> new CartNotFoundException(userId));
+
+        return convertToCartResponseDto(cart);
     }
 
     @Override
-    public CartResponseDto updateItemQuantity(Integer userId, Long cartItemId, CartUpdateItemQuantityRequest request) {
-        return null;
-    }
-
-    @Override
-    public void removeItem(Integer userId, Integer productId) {
+    public CartResponseDto updateItemQuantity(
+            Long userId,
+            Long cartItemId,
+            CartUpdateItemQuantityRequest request) {
         Cart cart = cartRepository.findByUser_Id(userId)
                 .orElseThrow(() -> new CartNotFoundException(userId));
 
-        // Tìm item chứa productId trong cart
-        Optional<CartItem> itemToRemove = cart.getItems().stream()
-                .filter(item -> item.getProduct().getId().equals(productId))
-                .findFirst();
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new CartItemNotFoundException(cartItemId));
 
-        if (itemToRemove.isPresent()) {
-            cart.getItems().remove(itemToRemove.get());
-            cartItemRepository.delete(itemToRemove.get());
-            cartRepository.save(cart);
-        } else {
-            throw new ProductNotFoundException(productId);
+        // Verify that the cart item belongs to the user's cart
+        if (!cartItem.getCart().getId().equals(cart.getId())) {
+            throw new CartItemNotFoundException(
+                    cart.getId(),
+                    cartItemId);
         }
+
+        // Update quantity
+        cartItem.setQuantity(request.getQuantity());
+        cartItemRepository.save(cartItem);
+
+        return convertToCartResponseDto(cart);
     }
 
     @Override
-    public void clearCart(Integer userId) {
+    public void removeItem(Long userId, Long cartItemId) {
+        Cart cart = cartRepository.findByUser_Id(userId)
+                .orElseThrow(() -> new CartNotFoundException(userId));
 
+        CartItem itemToRemove = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new CartItemNotFoundException(cartItemId));
+
+        // Verify that the cart item belongs to the user's cart
+        if (!itemToRemove.getCart().getId().equals(cart.getId())) {
+            throw new CartItemNotFoundException(
+                    cart.getId(),
+                    cartItemId);
+        }
+
+        cart.getItems().remove(itemToRemove);
+        cartItemRepository.delete(itemToRemove);
+        cartRepository.save(cart);
     }
 
     @Override
-    public void addToCart(Integer userId, CartAdditemRequestDto request) {
+    public void clearCart(Long userId) {
+        Cart cart = cartRepository.findByUser_Id(userId)
+                .orElseThrow(() -> new CartNotFoundException(userId));
+
+        // Delete all cart items
+        cartItemRepository.deleteAll(cart.getItems());
+        cart.getItems().clear();
+        cartRepository.save(cart);
+    }
+
+    @Override
+    public void addToCart(Long userId, CartAdditemRequestDto request) {
         Cart cart = cartRepository.findByUser_Id(userId)
                 .orElseThrow(() -> new CartNotFoundException(userId));
 
@@ -88,5 +118,39 @@ public class CartServiceImpl implements CartService {
 
         item.setQuantity(item.getQuantity() + request.getQuantity());
         cartItemRepository.save(item);
+    }
+
+    private CartItemResponseDto converToCartItemResponseDto(CartItem item) {
+
+        CartItemResponseDto dto = new CartItemResponseDto();
+        dto.setId(item.getId());
+        dto.setQuantity(item.getQuantity());
+        //
+        ProductResponseDto product = new ProductResponseDto();
+        product.setId(item.getProduct().getId());
+        product.setName(item.getProduct().getName());
+        product.setDescription(item.getProduct().getDescription());
+        product.setStock(item.getProduct().getStock());
+        product.setPrice(item.getProduct().getPrice());
+        product.setCategory(item.getProduct().getCategory());
+        //
+        dto.setProduct(product);
+
+        return dto;
+    }
+
+    private CartResponseDto convertToCartResponseDto(Cart cart) {
+
+        CartResponseDto dto = new CartResponseDto();
+        dto.setCartId(cart.getId());
+        //
+        List<CartItemResponseDto> items = new ArrayList<>();
+        for (CartItem item : cart.getItems()) {
+            CartItemResponseDto cartItem = converToCartItemResponseDto(item);
+            items.add(cartItem);
+        }
+        dto.setItems(items);
+
+        return dto;
     }
 }

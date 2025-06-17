@@ -17,7 +17,7 @@ public abstract class BaseEntity<T> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private T id;
 
     @Column(name = "created_date")
     @CreatedDate

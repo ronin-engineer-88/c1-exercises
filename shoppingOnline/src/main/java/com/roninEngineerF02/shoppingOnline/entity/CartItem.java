@@ -8,7 +8,8 @@ import lombok.Setter;
 @Table(name = "cart_items")
 @Getter
 @Setter
-public class CartItem extends BaseEntity {
+public class CartItem extends BaseEntity<Long> {
+
     private Integer quantity;
 
     @ManyToOne
