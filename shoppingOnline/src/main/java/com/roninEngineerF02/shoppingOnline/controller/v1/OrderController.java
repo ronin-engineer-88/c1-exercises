@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(UrlConstant.API_BASE_V1)
 @RequiredArgsConstructor
+@RequestMapping(UrlConstant.API_BASE_V1)
 public class OrderController {
 
     private final OrderService orderService;

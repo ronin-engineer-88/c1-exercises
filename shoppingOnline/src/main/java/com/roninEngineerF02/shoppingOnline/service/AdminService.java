@@ -4,6 +4,7 @@ import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderStatusRe
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductCreateRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductUpdateRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.response.order.OrderResponseDto;
+import com.roninEngineerF02.shoppingOnline.dto.response.product.AdminProductResponseDto;
 import com.roninEngineerF02.shoppingOnline.dto.response.product.ProductCreateResponseDto;
 import com.roninEngineerF02.shoppingOnline.dto.response.product.ProductUpdateResponseDto;
 import com.roninEngineerF02.shoppingOnline.dto.response.user.UserResponseDto;
@@ -22,6 +23,8 @@ public interface AdminService {
     UserResponseDto unblockUser(Long userId);
 
     // Product management function
+    List<AdminProductResponseDto> getProducts(String category, String name);
+
     ProductCreateResponseDto createProduct(ProductCreateRequestDto request);
 
     ProductUpdateResponseDto updateProduct(Long productId,

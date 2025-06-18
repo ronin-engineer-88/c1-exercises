@@ -22,7 +22,7 @@ public class UserController {
     public static Long getCurrentUserId() {
         // Placeholder implementation
         // Will be replaced with SecurityContextHolder implementation when Spring Security is added
-        return 2L;
+        return 1L;
     }
 
 }
