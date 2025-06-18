@@ -33,7 +33,7 @@ public interface OrderService {
     OrderResponseDto updateOrderStatus(Long orderId,
                                         UpdateOrderStatusRequestDto request);
 
-    void getOrderHistory(Long orderId);
+    List<OrderResponseDto> getOrderHistory(Long userId);
 
 
 }

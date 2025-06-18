@@ -1,29 +1,33 @@
 package com.roninEngineerF02.shoppingOnline.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
 @Getter
 @Setter
-public class Product extends BaseEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Product extends BaseEntity<Long> {
+
     private String name;
+
     private String description;
-    private BigDecimal price;
+
+    private Double price;
+
     private Integer stock;
 
     @Column(name = "original_price")
-    private BigDecimal originalPrice;
+    private Double originalPrice;
 
     private String category;
-
-    @OneToMany(mappedBy = "product")
-    private List<CartItem> cartItems;
 
     @OneToMany(mappedBy = "product")
     private List<OrderItem> orderItems;

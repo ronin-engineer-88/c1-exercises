@@ -1,7 +1,9 @@
 package com.roninEngineerF02.shoppingOnline.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -10,15 +12,19 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
-public class User extends BaseEntity {
-    private String email;
-    private String password;
-    private String fullname;
-    private String status;
-    private String role;
+@AllArgsConstructor
+@NoArgsConstructor
+public class User extends BaseEntity<Long> {
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Cart cart;
+    private String email;
+
+    private String password;
+
+    private String fullname;
+
+    private String status;
+
+    private String role;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;

@@ -3,22 +3,20 @@ package com.roninEngineerF02.shoppingOnline.service;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartAdditemRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartUpdateItemQuantityRequest;
 import com.roninEngineerF02.shoppingOnline.dto.response.cart.CartResponseDto;
-import com.roninEngineerF02.shoppingOnline.entity.CartItem;
-
-import java.util.List;
 
 public interface CartService {
 
-    List<CartItem> getCartItems(Integer userId);
+    CartResponseDto getCartByUserId(Long userId);
 
-    CartResponseDto updateItemQuantity(Integer userId,
+    CartResponseDto addItem(Long userId, CartAdditemRequestDto request);
+
+    CartResponseDto updateItemQuantity(Long userId,
                                        Long cartItemId,
                                        CartUpdateItemQuantityRequest request);
 
-    void removeItem(Integer userId,
-                    Integer productId);
+    void removeItem(Long userId,
+                    Long cartItemId);
 
-    void clearCart(Integer userId);
+    void clearCart(Long userId);
 
-    void addToCart(Integer userId, CartAdditemRequestDto request);
 }

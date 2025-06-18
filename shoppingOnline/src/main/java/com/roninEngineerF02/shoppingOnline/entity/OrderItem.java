@@ -1,16 +1,19 @@
 package com.roninEngineerF02.shoppingOnline.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items")
 @Getter
 @Setter
-public class OrderItem extends BaseEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrderItem extends BaseEntity<Long> {
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -20,8 +23,8 @@ public class OrderItem extends BaseEntity {
     private Product product;
 
     @Column(name = "original_price")
-    private BigDecimal originalPrice;
+    private Double originalPrice;
 
-    private BigDecimal price;
+    private Double price;
+
 }
-

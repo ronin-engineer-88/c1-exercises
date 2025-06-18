@@ -11,20 +11,20 @@ import com.roninEngineerF02.shoppingOnline.service.AdminService;
 import com.roninEngineerF02.shoppingOnline.service.OrderService;
 import com.roninEngineerF02.shoppingOnline.service.ProductService;
 import com.roninEngineerF02.shoppingOnline.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private OrderService orderService;
+    private final UserService userService;
+
+    private final ProductService productService;
+
+    private final OrderService orderService;
 
 
     @Override
@@ -80,8 +80,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void getOrderHistory(Long orderId) {
-        orderService.getOrderHistory(orderId);
+    public List<OrderResponseDto> getOrderHistory(Long orderId) {
+        return orderService.getOrderHistory(orderId);
     }
 
 }
