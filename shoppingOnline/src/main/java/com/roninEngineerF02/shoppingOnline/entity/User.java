@@ -1,6 +1,8 @@
 package com.roninEngineerF02.shoppingOnline.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +12,8 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User extends BaseEntity<Long> {
 
     private String email;
@@ -27,5 +31,4 @@ public class User extends BaseEntity<Long> {
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
-
 }

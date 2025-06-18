@@ -1,20 +1,22 @@
 package com.roninEngineerF02.shoppingOnline.dto.response.cart;
 
+import com.roninEngineerF02.shoppingOnline.dto.response.product.ProductResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartResponseDto {
+public class CartItemResponseDto {
 
-    private Long cartId;
+    private Long id;
 
-    private List<CartItemResponseDto> items;
+    ProductResponseDto product;
+
+    private int quantity;
 
 }

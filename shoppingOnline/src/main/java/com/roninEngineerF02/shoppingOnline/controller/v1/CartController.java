@@ -31,16 +31,17 @@ public class CartController {
     }
 
     @PatchMapping(UrlConstant.UPDATE_CART_ITEMS_QUANTITY)
-    public Object updateCartItemQuantity(@PathVariable Long id,
-                                         @RequestBody CartUpdateItemQuantityRequest request) {
+    public Object updateCartItemQuantity(
+            @PathVariable("id") Long cartItemId,
+            @RequestBody CartUpdateItemQuantityRequest request) {
         Long userId = getCurrentUserId();
-        return cartService.updateItemQuantity(userId, id, request);
+        return cartService.updateItemQuantity(userId, cartItemId, request);
     }
 
     @DeleteMapping(UrlConstant.CRUD_CART_ITEMS)
-    public Object removeFromCart(@PathVariable("id") Long productId) {
+    public Object removeFromCart(@PathVariable("id") Long cartItemId) {
         Long userId = getCurrentUserId();
-        cartService.removeItem(userId, productId);
+        cartService.removeItem(userId, cartItemId);
         return "Item removed";
     }
 

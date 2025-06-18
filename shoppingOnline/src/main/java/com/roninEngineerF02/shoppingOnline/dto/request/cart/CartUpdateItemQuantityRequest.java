@@ -1,7 +1,11 @@
 package com.roninEngineerF02.shoppingOnline.dto.request.cart;
 
+import lombok.Data;
+
+@Data
 public class CartUpdateItemQuantityRequest {
 
-    private String quantity;
+    private Long productId;
 
+    private Integer quantity;
 }
