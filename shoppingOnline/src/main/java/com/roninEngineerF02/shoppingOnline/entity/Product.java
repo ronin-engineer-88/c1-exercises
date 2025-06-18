@@ -4,21 +4,24 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
 @Getter
 @Setter
-public class Product extends BaseEntity {
+public class Product extends BaseEntity<Long> {
+
     private String name;
+
     private String description;
-    private BigDecimal price;
+
+    private Double price;
+
     private Integer stock;
 
     @Column(name = "original_price")
-    private BigDecimal originalPrice;
+    private Double originalPrice;
 
     private String category;
 

@@ -9,16 +9,16 @@ import java.util.List;
 
 public interface CartService {
 
-    List<CartItem> getCartItems(Integer userId);
+    List<CartItem> getCartItems(Long userId);
 
-    CartResponseDto updateItemQuantity(Integer userId,
+    CartResponseDto updateItemQuantity(Long userId,
                                        Long cartItemId,
                                        CartUpdateItemQuantityRequest request);
 
-    void removeItem(Integer userId,
-                    Integer productId);
+    void removeItem(Long userId,
+                    Long productId);
 
-    void clearCart(Integer userId);
+    void clearCart(Long userId);
 
-    void addToCart(Integer userId, CartAdditemRequestDto request);
+    void addToCart(Long userId, CartAdditemRequestDto request);
 }
