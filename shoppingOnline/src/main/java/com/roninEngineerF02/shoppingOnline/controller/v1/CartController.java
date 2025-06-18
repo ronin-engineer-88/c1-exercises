@@ -4,16 +4,15 @@ import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartAdditemRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartUpdateItemQuantityRequest;
 import com.roninEngineerF02.shoppingOnline.service.CartService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(UrlConstant.API_BASE_V1)
 public class CartController {
 
-    @Autowired
-    private CartService cartService;
+    private final CartService cartService;
 
     @GetMapping(UrlConstant.USER_CARTS)
     public Object getCart() {
@@ -23,10 +22,10 @@ public class CartController {
 
     // API add to cart
     @PostMapping(UrlConstant.CART_ITEMS)
-    public ResponseEntity<?> addToCart(@RequestBody CartAdditemRequestDto request) {
+    public Object addToCart(@RequestBody CartAdditemRequestDto request) {
         Integer userId = getCurrentUserId();
         cartService.addToCart(userId, request);
-        return ResponseEntity.ok("Added to cart successfully");
+        return "Added to cart successfully";
     }
 
     @PatchMapping(UrlConstant.UPDATE_CART_ITEMS_QUANTITY)
