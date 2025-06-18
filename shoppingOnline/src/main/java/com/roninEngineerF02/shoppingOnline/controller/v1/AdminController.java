@@ -5,16 +5,16 @@ import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderStatusRe
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductCreateRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductUpdateRequestDto;
 import com.roninEngineerF02.shoppingOnline.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(UrlConstant.API_BASE_V1)
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
 
 // ============================= USER MANAGEMENT ========================================
 
