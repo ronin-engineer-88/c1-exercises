@@ -1,10 +1,11 @@
 package com.roninEngineerF02.shoppingOnline.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +13,16 @@ import java.util.List;
 @Table(name = "orders")
 @Getter
 @Setter
-public class Order extends BaseEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Order extends BaseEntity<Long> {
+
     private String description;
+
     private String status;
 
     @Column(name = "total_amount")
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

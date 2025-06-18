@@ -13,44 +13,42 @@ import com.roninEngineerF02.shoppingOnline.repository.CartRepository;
 import com.roninEngineerF02.shoppingOnline.repository.ProductRepository;
 import com.roninEngineerF02.shoppingOnline.service.CartService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class CartServiceImpl implements CartService {
 
-    @Autowired
-    private CartRepository cartRepository;
+    private final CartRepository cartRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private CartItemRepository cartItemRepository;
+    private final CartItemRepository cartItemRepository;
 
     @Override
-    public CartResponseDto getCartByUserId(Integer userId) {
+    public CartResponseDto getCartByUserId(Long userId) {
         return null;
     }
 
     @Override
-    public CartResponseDto updateItemQuantity(Integer userId, Long cartItemId, CartUpdateItemQuantityRequest request) {
+    public CartResponseDto updateItemQuantity(Long userId, Long cartItemId, CartUpdateItemQuantityRequest request) {
         return null;
     }
 
     @Override
-    public void removeItem(Integer userId, Long cartItemId) {
+    public void removeItem(Long userId, Long cartItemId) {
 
     }
 
     @Override
-    public void clearCart(Integer userId) {
+    public void clearCart(Long userId) {
 
     }
 
     @Override
-    public void addToCart(Integer userId, CartAdditemRequestDto request) {
+    public void addToCart(Long userId, CartAdditemRequestDto request) {
         Cart cart = cartRepository.findByUser_Id(userId)
                 .orElseThrow(() -> new CartNotFoundException(userId));
 

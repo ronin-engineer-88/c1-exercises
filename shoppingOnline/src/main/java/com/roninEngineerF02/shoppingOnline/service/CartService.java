@@ -6,16 +6,16 @@ import com.roninEngineerF02.shoppingOnline.dto.response.cart.CartResponseDto;
 
 public interface CartService {
 
-    CartResponseDto getCartByUserId(Integer userId);
+    CartResponseDto getCartByUserId(Long userId);
 
-    CartResponseDto updateItemQuantity(Integer userId,
+    CartResponseDto updateItemQuantity(Long userId,
                                        Long cartItemId,
                                        CartUpdateItemQuantityRequest request);
 
-    void removeItem(Integer userId,
+    void removeItem(Long userId,
                     Long cartItemId);
 
-    void clearCart(Integer userId);
+    void clearCart(Long userId);
 
-    void addToCart(Integer userId, CartAdditemRequestDto request);
+    void addToCart(Long userId, CartAdditemRequestDto request);
 }

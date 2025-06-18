@@ -16,14 +16,14 @@ public class CartController {
 
     @GetMapping(UrlConstant.USER_CARTS)
     public Object getCart() {
-        Integer userId = getCurrentUserId();
+        Long userId = getCurrentUserId();
         return cartService.getCartByUserId(userId);
     }
 
     // API add to cart
     @PostMapping(UrlConstant.CART_ITEMS)
     public Object addToCart(@RequestBody CartAdditemRequestDto request) {
-        Integer userId = getCurrentUserId();
+        Long userId = getCurrentUserId();
         cartService.addToCart(userId, request);
         return "Added to cart successfully";
     }
@@ -31,29 +31,29 @@ public class CartController {
     @PatchMapping(UrlConstant.UPDATE_CART_ITEMS_QUANTITY)
     public Object updateCartItemQuantity(@PathVariable Long id,
                                          @RequestBody CartUpdateItemQuantityRequest request) {
-        Integer userId = getCurrentUserId();
+        Long userId = getCurrentUserId();
         return cartService.updateItemQuantity(userId, id, request);
     }
 
     @DeleteMapping(UrlConstant.CRUD_CART_ITEMS)
     public Object removeFromCart(@PathVariable Long id) {
-        Integer userId = getCurrentUserId();
+        Long userId = getCurrentUserId();
         cartService.removeItem(userId, id);
         return id;
     }
 
     @DeleteMapping(UrlConstant.CARTS)
     public Object clearCart() {
-        Integer userId = getCurrentUserId();
+        Long userId = getCurrentUserId();
         cartService.clearCart(userId);
         return null;
     }
 
     // Helper method to get current user ID (placeholder)
-    public static Integer getCurrentUserId() {
+    public static Long getCurrentUserId() {
         // Placeholder implementation
         // Will be replaced with SecurityContextHolder implementation when Spring Security is added
-        return 0;
+        return 2L;
     }
 
 }

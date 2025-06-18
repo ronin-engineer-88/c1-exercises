@@ -10,11 +10,16 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
-public class User extends BaseEntity {
+public class User extends BaseEntity<Long> {
+
     private String email;
+
     private String password;
+
     private String fullname;
+
     private String status;
+
     private String role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -22,4 +27,5 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+
 }
