@@ -27,7 +27,7 @@ public class AdminController {
     public Object deleteUser(@PathVariable Long id) {
         checkAdminAccess();
         adminService.deleteUser(id);
-        return id;
+        return "Delete user successfully";
     }
 
     @PatchMapping(UrlConstant.BLOCK_USERS)
@@ -52,7 +52,7 @@ public class AdminController {
 
     @PutMapping(UrlConstant.CRUD_ADMIN_PRODUCTS)
     public Object updateProduct(@PathVariable Long id,
-            @RequestBody ProductUpdateRequestDto request) {
+                                @RequestBody ProductUpdateRequestDto request) {
         checkAdminAccess();
         return adminService.updateProduct(id, request);
     }
@@ -80,7 +80,7 @@ public class AdminController {
 
     @PatchMapping(UrlConstant.UPDATE_ORDER_DETAIL)
     public Object updateOrderStatus(@PathVariable Long id,
-            @RequestBody UpdateOrderStatusRequestDto request) {
+                                    @RequestBody UpdateOrderStatusRequestDto request) {
         checkAdminAccess();
         return adminService.updateOrderStatus(id, request);
     }

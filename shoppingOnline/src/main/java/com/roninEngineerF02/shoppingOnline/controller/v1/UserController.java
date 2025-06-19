@@ -2,15 +2,15 @@ package com.roninEngineerF02.shoppingOnline.controller.v1;
 
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstant.API_BASE_V1)
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping(UrlConstant.USER_PROFILE)
     public Object getUserProfile() {
@@ -22,7 +22,7 @@ public class UserController {
     public static Long getCurrentUserId() {
         // Placeholder implementation
         // Will be replaced with SecurityContextHolder implementation when Spring Security is added
-        return 1L;
+        return 2L;
     }
 
 }

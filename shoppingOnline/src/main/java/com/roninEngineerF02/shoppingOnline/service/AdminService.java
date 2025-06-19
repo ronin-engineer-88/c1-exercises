@@ -25,7 +25,7 @@ public interface AdminService {
     ProductCreateResponseDto createProduct(ProductCreateRequestDto request);
 
     ProductUpdateResponseDto updateProduct(Long productId,
-                                           ProductUpdateRequestDto request);
+            ProductUpdateRequestDto request);
 
     void deleteProduct(Long productId);
 
@@ -35,7 +35,7 @@ public interface AdminService {
     OrderResponseDto getOrderDetails(Long orderId);
 
     OrderResponseDto updateOrderStatus(Long orderId,
-                                       UpdateOrderStatusRequestDto request);
+            UpdateOrderStatusRequestDto request);
 
     List<OrderResponseDto> getOrderHistory(Long userId);
 

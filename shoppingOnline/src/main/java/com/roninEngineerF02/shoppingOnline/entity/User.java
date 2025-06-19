@@ -14,11 +14,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseEntity<Long> {
+public class User extends BaseEntity<Long>{
 
     private String email;
 
     private String password;
+
     private String fullname;
 
     private String status;
