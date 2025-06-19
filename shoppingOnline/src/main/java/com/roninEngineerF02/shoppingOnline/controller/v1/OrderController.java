@@ -4,15 +4,15 @@ import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.CreateOrderRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderInfoRequestDto;
 import com.roninEngineerF02.shoppingOnline.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(UrlConstant.API_BASE_V1)
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @GetMapping(UrlConstant.USER_ORDERS)
     public Object getUserOrders() {
@@ -20,7 +20,7 @@ public class OrderController {
         return orderService.getUserOrders(userId);
     }
 
-    @PutMapping(UrlConstant.ORDERS)
+    @PostMapping(UrlConstant.ORDERS)
     public Object createOrder(@RequestBody CreateOrderRequestDto request) {
         Long userId = getCurrentUserId();
         return orderService.createOrder(userId, request);
@@ -34,7 +34,7 @@ public class OrderController {
 
     @PatchMapping(UrlConstant.UPDATE_ORDER_INFO)
     public Object updateOrderInfo(@PathVariable Long id,
-                                    @RequestBody UpdateOrderInfoRequestDto request) {
+            @RequestBody UpdateOrderInfoRequestDto request) {
         Long userId = getCurrentUserId();
         return orderService.updateOrderInfo(userId, id, request);
     }
@@ -45,13 +45,12 @@ public class OrderController {
         return orderService.cancelOrder(userId, id);
     }
 
-
     // Helper method to get current user ID (placeholder)
     public static Long getCurrentUserId() {
         // Placeholder implementation
-        // Will be replaced with SecurityContextHolder implementation when Spring Security is added
-        return 1L;
+        // Will be replaced with SecurityContextHolder implementation when Spring
+        // Security is added
+        return 2L;
     }
-
 
 }

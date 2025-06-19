@@ -5,18 +5,17 @@ import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderStatusRe
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductCreateRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.product.ProductUpdateRequestDto;
 import com.roninEngineerF02.shoppingOnline.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(UrlConstant.API_BASE_V1)
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
 
-// ============================= USER MANAGEMENT ========================================
+    // ============================= USER MANAGEMENT ========================================
 
     @GetMapping(UrlConstant.ADMIN_USERS)
     public Object getUsers(@RequestParam(required = false) String email) {
@@ -43,8 +42,7 @@ public class AdminController {
         return adminService.unblockUser(id);
     }
 
-
-// ============================= PRODUCT MANAGEMENT ========================================
+    // ============================= PRODUCT MANAGEMENT ========================================
 
     @PostMapping(UrlConstant.ADMIN_PRODUCTS)
     public Object createProduct(@RequestBody ProductCreateRequestDto request) {
@@ -54,7 +52,7 @@ public class AdminController {
 
     @PutMapping(UrlConstant.CRUD_ADMIN_PRODUCTS)
     public Object updateProduct(@PathVariable Long id,
-                                @RequestBody ProductUpdateRequestDto request) {
+            @RequestBody ProductUpdateRequestDto request) {
         checkAdminAccess();
         return adminService.updateProduct(id, request);
     }
@@ -66,8 +64,7 @@ public class AdminController {
         return id;
     }
 
-
-// ============================= ORDER MANAGEMENT ========================================
+    // ============================= ORDER MANAGEMENT ========================================
 
     @GetMapping(UrlConstant.ADMIN_ORDERS)
     public Object getAllOrders() {
@@ -83,18 +80,16 @@ public class AdminController {
 
     @PatchMapping(UrlConstant.UPDATE_ORDER_DETAIL)
     public Object updateOrderStatus(@PathVariable Long id,
-                                    @RequestBody UpdateOrderStatusRequestDto request) {
+            @RequestBody UpdateOrderStatusRequestDto request) {
         checkAdminAccess();
         return adminService.updateOrderStatus(id, request);
     }
 
     @GetMapping(UrlConstant.GET_ORDER_HISTORY)
-    public Object getOrderHistory(@PathVariable Long id) {
+    public Object getOrderHistory(@PathVariable("id") Long userId) {
         checkAdminAccess();
-        adminService.getOrderHistory(id);
-        return id;
+        return adminService.getOrderHistory(userId);
     }
-
 
     // Helper method to check admin access (placeholder)
     private void checkAdminAccess() {
@@ -102,6 +97,5 @@ public class AdminController {
         // Will be replaced with proper admin role check when Spring Security is added
         // Could throw AccessDeniedException if not admin
     }
-
 
 }

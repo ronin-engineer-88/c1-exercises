@@ -30,8 +30,5 @@ public class Product extends BaseEntity<Long> {
     private String category;
 
     @OneToMany(mappedBy = "product")
-    private List<CartItem> cartItems;
-
-    @OneToMany(mappedBy = "product")
     private List<OrderItem> orderItems;
 }
