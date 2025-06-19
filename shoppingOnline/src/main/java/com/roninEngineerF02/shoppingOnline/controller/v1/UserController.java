@@ -1,7 +1,6 @@
 package com.roninEngineerF02.shoppingOnline.controller.v1;
 
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
-import com.roninEngineerF02.shoppingOnline.exception.ApiException;
 import com.roninEngineerF02.shoppingOnline.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +15,8 @@ public class UserController {
 
     @GetMapping(UrlConstant.USER_PROFILE)
     public ResponseEntity<Object> getUserProfile() {
-        try {
-            Long userId = getCurrentUserId();
-            return ResponseEntity.ok(userService.getUserById(userId));
-        } catch (ApiException e) {
-            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
-        }
+        Long userId = getCurrentUserId();
+        return ResponseEntity.ok(userService.getUserById(userId));
     }
 
     // Helper method to get current user ID (placeholder)

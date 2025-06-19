@@ -2,7 +2,6 @@ package com.roninEngineerF02.shoppingOnline.controller.v1;
 
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.statistic.DateRangeRequestDto;
-import com.roninEngineerF02.shoppingOnline.exception.ApiException;
 import com.roninEngineerF02.shoppingOnline.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +19,8 @@ public class StatisticController {
 
     @GetMapping(UrlConstant.GET_STATS_REVENUE)
     public ResponseEntity<Object> getRevenueStats(@RequestBody(required = false) DateRangeRequestDto request) {
-        try {
-            checkAdminAccess();
-            return ResponseEntity.ok(statisticService.getRevenueStatistics(request));
-        } catch (ApiException e) {
-            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
-        }
+        checkAdminAccess();
+        return ResponseEntity.ok(statisticService.getRevenueStatistics(request));
     }
 
     // Helper method to check admin access (placeholder)
