@@ -7,6 +7,7 @@ import com.roninEngineerF02.shoppingOnline.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class OrderController {
     }
 
     @PostMapping(UrlConstant.ORDERS)
-    public ResponseEntity<Object> createOrder(@RequestBody CreateOrderRequestDto request) {
+    public ResponseEntity<Object> createOrder(@Valid @RequestBody CreateOrderRequestDto request) {
         Long userId = getCurrentUserId();
         return ResponseEntity.ok(orderService.createOrder(userId, request));
     }
@@ -35,7 +36,7 @@ public class OrderController {
 
     @PatchMapping(UrlConstant.UPDATE_ORDER_INFO)
     public ResponseEntity<Object> updateOrderInfo(@PathVariable Long id,
-            @RequestBody UpdateOrderInfoRequestDto request) {
+            @Valid @RequestBody UpdateOrderInfoRequestDto request) {
         Long userId = getCurrentUserId();
         return ResponseEntity.ok(orderService.updateOrderInfo(userId, id, request));
     }

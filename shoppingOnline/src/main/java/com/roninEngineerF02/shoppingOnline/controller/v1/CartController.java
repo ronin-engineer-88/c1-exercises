@@ -7,6 +7,7 @@ import com.roninEngineerF02.shoppingOnline.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class CartController {
 
     // API add to cart
     @PostMapping(UrlConstant.CART_ITEMS)
-    public ResponseEntity<Object> addToCart(@RequestBody CartAdditemRequestDto request) {
+    public ResponseEntity<Object> addToCart(@Valid @RequestBody CartAdditemRequestDto request) {
         Long userId = getCurrentUserId();
         cartService.addToCart(userId, request);
         return ResponseEntity.ok("Added to cart successfully");
@@ -33,7 +34,7 @@ public class CartController {
     @PatchMapping(UrlConstant.UPDATE_CART_ITEMS_QUANTITY)
     public ResponseEntity<Object> updateCartItemQuantity(
             @PathVariable("id") Long cartItemId,
-            @RequestBody CartUpdateItemQuantityRequest request) {
+            @Valid @RequestBody CartUpdateItemQuantityRequest request) {
         Long userId = getCurrentUserId();
         return ResponseEntity.ok(cartService.updateItemQuantity(userId, cartItemId, request));
     }

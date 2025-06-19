@@ -8,6 +8,7 @@ import com.roninEngineerF02.shoppingOnline.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -56,14 +57,14 @@ public class AdminController {
     }
 
     @PostMapping(UrlConstant.ADMIN_PRODUCTS)
-    public ResponseEntity<Object> createProduct(@RequestBody ProductCreateRequestDto request) {
+    public ResponseEntity<Object> createProduct(@Valid @RequestBody ProductCreateRequestDto request) {
         checkAdminAccess();
         return ResponseEntity.ok(adminService.createProduct(request));
     }
 
     @PutMapping(UrlConstant.CRUD_ADMIN_PRODUCTS)
     public ResponseEntity<Object> updateProduct(@PathVariable Long id,
-            @RequestBody ProductUpdateRequestDto request) {
+            @Valid @RequestBody ProductUpdateRequestDto request) {
         checkAdminAccess();
         return ResponseEntity.ok(adminService.updateProduct(id, request));
     }
@@ -94,7 +95,7 @@ public class AdminController {
 
     @PatchMapping(UrlConstant.UPDATE_ORDER_DETAIL)
     public ResponseEntity<Object> updateOrderStatus(@PathVariable Long id,
-            @RequestBody UpdateOrderStatusRequestDto request) {
+            @Valid @RequestBody UpdateOrderStatusRequestDto request) {
         checkAdminAccess();
         return ResponseEntity.ok(adminService.updateOrderStatus(id, request));
     }
