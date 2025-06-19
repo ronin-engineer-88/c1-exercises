@@ -9,6 +9,7 @@ import com.roninEngineerF02.shoppingOnline.repository.UserRepository;
 import com.roninEngineerF02.shoppingOnline.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,6 +19,8 @@ import java.util.Date;
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserLoginResponseDto login(UserLoginRequestDto request) {
@@ -29,8 +32,8 @@ public class AuthServiceImpl implements AuthService {
                     "Email không tồn tại trong hệ thống", false);
         }
 
-        // Checking password
-        if (!user.getPassword().equals(request.getPassword())) {
+        // Checking password using BCrypt
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             return new UserLoginResponseDto(null, null, null, null,
                     "Mật khẩu không chính xác", false);
         }
@@ -58,6 +61,9 @@ public class AuthServiceImpl implements AuthService {
         // Create new user
         User user = new User();
         BeanUtils.copyProperties(request, user);
+
+        // Encrypt password using BCrypt
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         // Set default values
         if (user.getStatus() == null) {
