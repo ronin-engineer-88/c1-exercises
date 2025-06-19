@@ -3,10 +3,11 @@ package com.roninEngineerF02.shoppingOnline.controller.v1;
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartAdditemRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.cart.CartUpdateItemQuantityRequest;
+import com.roninEngineerF02.shoppingOnline.exception.ApiException;
 import com.roninEngineerF02.shoppingOnline.service.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -17,45 +18,66 @@ public class CartController {
 
     // API view cart by userId
     @GetMapping(UrlConstant.USER_CARTS)
-    public Object viewCart() {
-        Long userId = getCurrentUserId();
-        return cartService.getCartItems(userId);
+    public ResponseEntity<Object> viewCart() {
+        try {
+            Long userId = getCurrentUserId();
+            return ResponseEntity.ok(cartService.getCartItems(userId));
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     // API add to cart
     @PostMapping(UrlConstant.CART_ITEMS)
-    public Object addToCart(@RequestBody CartAdditemRequestDto request) {
-        Long userId = getCurrentUserId();
-        cartService.addToCart(userId, request);
-        return "Added to cart successfully";
+    public ResponseEntity<Object> addToCart(@RequestBody CartAdditemRequestDto request) {
+        try {
+            Long userId = getCurrentUserId();
+            cartService.addToCart(userId, request);
+            return ResponseEntity.ok("Added to cart successfully");
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     @PatchMapping(UrlConstant.UPDATE_CART_ITEMS_QUANTITY)
-    public Object updateCartItemQuantity(
+    public ResponseEntity<Object> updateCartItemQuantity(
             @PathVariable("id") Long cartItemId,
             @RequestBody CartUpdateItemQuantityRequest request) {
-        Long userId = getCurrentUserId();
-        return cartService.updateItemQuantity(userId, cartItemId, request);
+        try {
+            Long userId = getCurrentUserId();
+            return ResponseEntity.ok(cartService.updateItemQuantity(userId, cartItemId, request));
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     @DeleteMapping(UrlConstant.CRUD_CART_ITEMS)
-    public Object removeFromCart(@PathVariable("id") Long cartItemId) {
-        Long userId = getCurrentUserId();
-        cartService.removeItem(userId, cartItemId);
-        return "Item removed";
+    public ResponseEntity<Object> removeFromCart(@PathVariable("id") Long cartItemId) {
+        try {
+            Long userId = getCurrentUserId();
+            cartService.removeItem(userId, cartItemId);
+            return ResponseEntity.ok("Item removed");
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     @DeleteMapping(UrlConstant.CARTS)
-    public Object clearCart() {
-        Long userId = getCurrentUserId();
-        cartService.clearCart(userId);
-        return null;
+    public ResponseEntity<Object> clearCart() {
+        try {
+            Long userId = getCurrentUserId();
+            cartService.clearCart(userId);
+            return ResponseEntity.ok(null);
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     // Helper method to get current user ID (placeholder)
     public static Long getCurrentUserId() {
         // Placeholder implementation
-        // Will be replaced with SecurityContextHolder implementation when Spring Security is added
+        // Will be replaced with SecurityContextHolder implementation when Spring
+        // Security is added
         return 2L;
     }
 

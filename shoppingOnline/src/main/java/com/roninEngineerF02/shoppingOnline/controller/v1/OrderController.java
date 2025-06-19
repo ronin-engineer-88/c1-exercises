@@ -3,8 +3,10 @@ package com.roninEngineerF02.shoppingOnline.controller.v1;
 import com.roninEngineerF02.shoppingOnline.constant.UrlConstant;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.CreateOrderRequestDto;
 import com.roninEngineerF02.shoppingOnline.dto.request.order.UpdateOrderInfoRequestDto;
+import com.roninEngineerF02.shoppingOnline.exception.ApiException;
 import com.roninEngineerF02.shoppingOnline.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,34 +17,54 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping(UrlConstant.USER_ORDERS)
-    public Object getUserOrders() {
-        Long userId = getCurrentUserId();
-        return orderService.getUserOrders(userId);
+    public ResponseEntity<Object> getUserOrders() {
+        try {
+            Long userId = getCurrentUserId();
+            return ResponseEntity.ok(orderService.getUserOrders(userId));
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     @PostMapping(UrlConstant.ORDERS)
-    public Object createOrder(@RequestBody CreateOrderRequestDto request) {
-        Long userId = getCurrentUserId();
-        return orderService.createOrder(userId, request);
+    public ResponseEntity<Object> createOrder(@RequestBody CreateOrderRequestDto request) {
+        try {
+            Long userId = getCurrentUserId();
+            return ResponseEntity.ok(orderService.createOrder(userId, request));
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     @GetMapping(UrlConstant.CRUD_USER_ORDERS)
-    public Object getUserOrderDetail(@PathVariable Long id) {
-        Long userId = getCurrentUserId();
-        return orderService.getOrderDetailsForUser(userId, id);
+    public ResponseEntity<Object> getUserOrderDetail(@PathVariable Long id) {
+        try {
+            Long userId = getCurrentUserId();
+            return ResponseEntity.ok(orderService.getOrderDetailsForUser(userId, id));
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     @PatchMapping(UrlConstant.UPDATE_ORDER_INFO)
-    public Object updateOrderInfo(@PathVariable Long id,
+    public ResponseEntity<Object> updateOrderInfo(@PathVariable Long id,
             @RequestBody UpdateOrderInfoRequestDto request) {
-        Long userId = getCurrentUserId();
-        return orderService.updateOrderInfo(userId, id, request);
+        try {
+            Long userId = getCurrentUserId();
+            return ResponseEntity.ok(orderService.updateOrderInfo(userId, id, request));
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     @PatchMapping(UrlConstant.CANCEL_ORDER)
-    public Object cancelOrder(@PathVariable Long id) {
-        Long userId = getCurrentUserId();
-        return orderService.cancelOrder(userId, id);
+    public ResponseEntity<Object> cancelOrder(@PathVariable Long id) {
+        try {
+            Long userId = getCurrentUserId();
+            return ResponseEntity.ok(orderService.cancelOrder(userId, id));
+        } catch (ApiException e) {
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }
     }
 
     // Helper method to get current user ID (placeholder)

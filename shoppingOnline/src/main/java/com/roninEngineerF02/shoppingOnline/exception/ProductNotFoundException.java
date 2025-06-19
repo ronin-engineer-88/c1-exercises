@@ -1,12 +1,12 @@
 package com.roninEngineerF02.shoppingOnline.exception;
 
-public class ProductNotFoundException extends RuntimeException {
+public class ProductNotFoundException extends ApiException {
 
     public ProductNotFoundException(Long id) {
-        super("Product not found with id: " + id);
+        super("Product not found with id: " + id, 404);
     }
 
     public ProductNotFoundException(String message) {
-        super(message);
+        super(message, 404);
     }
 }
